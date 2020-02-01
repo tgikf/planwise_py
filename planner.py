@@ -104,11 +104,7 @@ def get_all_allocation_proposals(budget, options, level=0):
 
         for current_element in best_options:
 
-            downstream_options = remove_conflicting_options(
-                current_element, options)
-            #downstream_budget = budget - current_element['cost']
-            #current_element['downstream_budget'] = downstream_budget
-            current_element['level'] = level
+            downstream_options = remove_conflicting_options(current_element, options)
           
             downstream_elements = get_all_allocation_proposals(budget - current_element['cost'],
                                                                deepcopy(downstream_options), 
