@@ -92,19 +92,26 @@ def get_all_allocation_proposals(budget, options, level=0):
 
 
     # filter options for affordable options and sort by cost benefit ratio
-    options = [x for x in options if x['cost'] <= budget]
-    options = sorted(options, key=lambda x: (x['benefit_cost_ratio'], x['benefit']), reverse=True)
-    proposals = []
+    max_benefit_cost_ratio = 0
+    affordable_best_options = []
+    for o in options:
+        if o['cost'] <= budget:
+            if o['benefit_cost_ratio'] > max_benefit_cost_ratio:
+                max_benefit_cost_ratio = o['benefit_cost_ratio']
+                del affordable_best_options[:]
+            if o['benefit_cost_ratio'] == max_benefit_cost_ratio:
+                affordable_best_options.append(o)
 
-    if (len(options) > 0):
+    if (len(affordable_best_options) > 0):
+        proposals = []
+
         # select the best options
-        best_bc_ratio = options[0]['benefit_cost_ratio']
-        best_options = [
-            x for x in options if x['benefit_cost_ratio'] == best_bc_ratio]
+        for current_element in affordable_best_options:
 
-        for current_element in best_options:
+            downstream_options = remove_conflicting_options(
+                current_element, options)
 
-            downstream_options = remove_conflicting_options(current_element, options)
+            current_element['level'] = level
           
             downstream_elements = get_all_allocation_proposals(budget - current_element['cost'],
                                                                deepcopy(downstream_options), 
@@ -176,7 +183,9 @@ def get_allocation_proposals(budget, horizon_start, horizon_end, holiday_country
     # get all options and filter for affordable ones based on budget
     affordable_options = [x for x in get_options(
         horizon_dates) if x['cost'] <= budget and x['benefit_cost_ratio'] > 1]
-
+    #print('start')
+    #print(affordable_options)
+    #print('end')
     proposals = get_all_allocation_proposals(budget, affordable_options)
     proposals = cleanse_allocation_proposals(proposals)
 
@@ -187,5 +196,5 @@ def get_allocation_proposals(budget, horizon_start, horizon_end, holiday_country
     return proposals
 
 
-proposals = get_allocation_proposals(15, '2020-01-01', '2020-02-27', 'CH')
+proposals = get_allocation_proposals(15, '2020-01-01', '2020-01-27', 'CH')
 print(proposals)
