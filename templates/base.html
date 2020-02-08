@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PlanWise</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'includes/_stylesheets.html' %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron">
+
+            <div class="row mx-auto justify-content-between">
+                <h1>PlanWise</h1>
+            </div>
+            <div class="row mx-auto">
+                <div class="col align-middle">
+                    {% include 'planning_form.html' %}
+                </div>
+                <div class="col align-middle" id="alertzone">
+                    {% include 'includes/_messages.html' %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <img class="loadinggif" src="{{ url_for('static', filename='loading.gif') }}" alt="Loading">
+            <div data-provide="calendar"></div>
+        </div>
+        {% include 'includes/_scripts.html' %}
+    </div>
+</body>
+
+</html>

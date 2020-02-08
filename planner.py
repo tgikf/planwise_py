@@ -6,9 +6,9 @@ from datetime import timedelta
 import holidays
 
 
-def get_horizon_dates(horizon_start, horizon_end, country):
+def get_horizon_dates(start_date, end_date, country):
     # get date range for horizon
-    rng = pd.date_range(horizon_start, horizon_end)
+    rng = pd.date_range(start_date, end_date)
     country_holidays = holidays.CountryHoliday(country, years=rng.year)
 
     # create list of timestamps and each date's cost (0 for weekend or public holiday, 1 for weekdays)
@@ -37,6 +37,8 @@ def get_options(date_list):
         option_cost = initial_cost = date_list[i][1]
         # initialize benefit with 1 as current day is accounted for in cost
         option_benefit = 1
+        #initialize option public holiday weight with 1
+        option_ph_weight = 1
 
         # initialize secondary index
         j = i
@@ -50,6 +52,10 @@ def get_options(date_list):
                 option_cost += date_list[j][1]
                 option_benefit += 1
 
+                #increase public holiday weighting for public holidays
+                if date_list[j][1] == 0 and date_list[j][0].weekday() < 5:
+                    option_ph_weight += 1
+
                 # end of opten is when:
                 #   secondary date is last date in date list
                 #   or
@@ -60,7 +66,7 @@ def get_options(date_list):
 
                     option_end = date_list[j][0]
                     options.append({'start': option_start.isoformat(), 'end': option_end.isoformat(), 'benefit': option_benefit,
-                                    'cost': option_cost, 'benefit_cost_ratio': (option_benefit / option_cost)})
+                                    'cost': option_cost, 'rating': option_ph_weight*(option_benefit / option_cost)})
                     break
 
     return options
@@ -183,9 +189,9 @@ def get_allocation_proposals(budget, horizon_start, horizon_end, holiday_country
     # get all options and filter for affordable ones based on budget
     affordable_options = [x for x in get_options(
         horizon_dates) if x['cost'] <= budget and x['benefit_cost_ratio'] > 1]
-    #print('start')
-    #print(affordable_options)
-    #print('end')
+    print('start')
+    print(affordable_options)
+    print('end')
     proposals = get_all_allocation_proposals(budget, affordable_options)
     proposals = cleanse_allocation_proposals(proposals)
 
@@ -195,6 +201,24 @@ def get_allocation_proposals(budget, horizon_start, horizon_end, holiday_country
 
     return proposals
 
-
-proposals = get_allocation_proposals(15, '2020-01-01', '2020-01-27', 'CH')
-print(proposals)
+from timeit import default_timer as timer
+start = timer()
+get_allocation_proposals(15, '2020-01-01', '2020-02-29', 'CH')
+end = timer()
+#print('budget 15, 2020-01-01 till 2020-01-31: ' + str(end-start))
+start = timer()
+#proposals = get_allocation_proposals(15, '2020-01-01', '2020-02-05', 'CH')
+end = timer()
+#print('budget 15, 2020-01-01 till 2020-02-05: ' + str(end-start))
+start = timer()
+#proposals = get_allocation_proposals(15, '2020-01-01', '2020-02-10', 'CH')
+end = timer()
+print('budget 15, 2020-01-01 till 2020-02-10: ' + str(end-start))
+start = timer()
+#proposals = get_allocation_proposals(15, '2020-01-01', '2020-02-15', 'CH')
+end = timer()
+print('budget 15, 2020-01-01 till 2020-02-15: ' + str(end-start))
+start = timer()
+#proposals = get_allocation_proposals(15, '2020-01-01', '2020-02-29', 'CH')
+end = timer()
+print('budget 15, 2020-01-01 till 2020-02-29: ' + str(start-end))

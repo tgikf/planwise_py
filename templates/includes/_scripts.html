@@ -1,0 +1,34 @@
+<!-- jQuery  -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap  -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+<!-- Year Calendar -->
+<script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
+<!-- Input spinner  -->
+<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-input-spinner.js') }}"></script>
+<!-- App javascript  -->
+<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+
+    $(document).ready(function () {
+        var date_input = $('input[id=horizonStart], input[id=horizonEnd]');
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+
+    $(function () {
+        $('#calendar').calendar();
+    });
+</script>
