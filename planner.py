@@ -2,7 +2,8 @@ import pandas as pd
 from copy import deepcopy
 import funcy
 import itertools
-from datetime import timedelta
+from datetime import timedelta, datetime
+from collections import namedtuple
 import holidays
 
 
@@ -19,6 +20,7 @@ def get_horizon_dates(start_date, end_date, ph_country):
         )
 
     return date_list
+
 
 def get_options(date_list):
     # accepts:
@@ -72,7 +74,7 @@ def get_options(date_list):
                     # options with 0 cost can be disregarded
                     if option_cost > 0:
 
-                        #calculate option rating
+                        # calculate option rating
                         option_rating = option_ph_weight * (
                             option_benefit / option_cost
                         )
@@ -91,7 +93,7 @@ def get_options(date_list):
 
     return options
 
-
+"""
 def remove_conflicting_options(option, option_list):
     # accepts:
     #   specific option
@@ -107,6 +109,22 @@ def remove_conflicting_options(option, option_list):
 
     return remaining_options
 
+"""
+def remove_conflicting_options(option, option_list):
+    # accepts:
+    #   specific option
+    #   list of options
+    # returns:
+    #   list of options that has no overlappings with given option
+
+    remaining_options = []
+    for list_entry in option_list:
+        if (list_entry["start"] < list_entry["end"] < option["start"]) or (
+            list_entry["end"] > list_entry["start"] > option["end"]
+        ):
+            remaining_options.append(list_entry)
+
+    return remaining_options
 
 def get_all_allocation_proposals(budget, options, level=0):
     # accepts:
@@ -145,8 +163,11 @@ def get_all_allocation_proposals(budget, options, level=0):
             proposals.append([current_option] + downstream_elements)
         else:
             proposals.append(current_option)
-
         return proposals
+
+        # return [current_option] + get_all_allocation_proposals(
+        #    budget - current_option["cost"], deepcopy(downstream_options), level + 1
+        # )
     else:
         return []
 
@@ -218,10 +239,14 @@ def get_allocation_proposals(budget, start_date, end_date, ph_country):
     return proposals
 
 
-#from timeit import default_timer as timer
 
-#start = timer()
-#print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))
-#end = timer()
-#print("time" + str(end - start))
+#import cProfile
+#cProfile.run(
+#    """print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))"""
+#)
+from timeit import default_timer as timer
+start = timer()
+print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))
+end = timer()
+print("time" + str(end - start))
 
