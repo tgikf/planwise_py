@@ -93,23 +93,6 @@ def get_options(date_list):
 
     return options
 
-"""
-def remove_conflicting_options(option, option_list):
-    # accepts:
-    #   specific option
-    #   list of options
-    # returns:
-    #   list of options that has no overlappings with given option
-    option_date_range = pd.date_range(option["start"], option["end"])
-    remaining_options = []
-    for list_entry in option_list:
-        list_entry_range = pd.date_range(list_entry["start"], list_entry["end"])
-        if len(option_date_range.intersection(list_entry_range)) <= 0:
-            remaining_options.append(list_entry)
-
-    return remaining_options
-
-"""
 def remove_conflicting_options(option, option_list):
     # accepts:
     #   specific option
@@ -119,12 +102,14 @@ def remove_conflicting_options(option, option_list):
 
     remaining_options = []
     for list_entry in option_list:
+        # keep all entries that are either entirely before or entirely after the current option
         if (list_entry["start"] < list_entry["end"] < option["start"]) or (
             list_entry["end"] > list_entry["start"] > option["end"]
         ):
             remaining_options.append(list_entry)
 
     return remaining_options
+
 
 def get_all_allocation_proposals(budget, options, level=0):
     # accepts:
@@ -239,12 +224,12 @@ def get_allocation_proposals(budget, start_date, end_date, ph_country):
     return proposals
 
 
-
-#import cProfile
-#cProfile.run(
+# import cProfile
+# cProfile.run(
 #    """print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))"""
-#)
+# )
 from timeit import default_timer as timer
+
 start = timer()
 print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))
 end = timer()
