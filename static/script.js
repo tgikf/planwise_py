@@ -9,7 +9,7 @@ function submitPlanningForm(e) {
         $('img.loadinggif').show();
 
         //define correct API url
-        var apiURL = 'http://localhost:5000/api/planwisely';
+        var apiURL = 'http://localhost:5000/api/plan';
 
         //execute api call
         $.ajax({
