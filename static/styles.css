@@ -1,32 +1,100 @@
-.input-group-addon.primary {
-    color: #ffffff;
-    background-color: #0275d8;
-    border-color: #0275d8;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+html {
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
 
-.input-group-text.primary {
-    color: #ffffff;
-    background-color: #0275d8;
-    border-color: #0275d8;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
-    cursor: initial;
+body {
+  height: 100%;
+  /* Margin bottom by footer height
+  margin-bottom: 60px;*/
 }
 
-.form-control.withprepend {
-    border: 1px solid #0275d8;
-    width: 7.5em;
+header {
+  font-weight: bold;
 }
 
-.loadinggif {
-    margin-left: 48%;
-    margin-top: 10%;
-    width: 4%;
-    display: none;
+nav {
+  padding: 2em 3em 2em;
+  background-color: #17a2b8;
+  height: 10em;
+}
+
+a.nav-link {
+  color: #f8f9fa;
+}
+
+nav a:hover {
+  color: #343a40;
+}
+
+main {
+  min-height: 100%;
+  padding: 1em;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  font-size: 5em;
 }
 
 .calendar {
-    overflow: visible !important;
+  /*padding: 20px !important;*/
+  overflow: visible !important;
+}
+
+.planform {
+  background-color: #6c757d;
+  padding: 1em 2em 1em;
+}
+
+/* input field */
+
+.input-group-addon.primary {
+  color: #f8f9fa;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+/* prepend text */
+
+.input-group-text.primary {
+  color: #f8f9fa;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  cursor: initial;
+}
+
+.form-control.withprepend {
+  border: 1px solid #17a2b8;
+  width: auto;
+}
+
+.bootstrap-select.form-control .dropdown-toggle {
+  border: 1px solid #17a2b8;
+}
+.planform .input-group:not(:last-child) {
+  margin-right: 1em;
+}
+
+@media (min-width: 768px) {
+  .navbar-brand.abs {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
   }
+}

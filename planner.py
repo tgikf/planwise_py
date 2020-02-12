@@ -93,6 +93,7 @@ def get_options(date_list):
 
     return options
 
+
 def remove_conflicting_options(option, option_list):
     # accepts:
     #   specific option
@@ -224,14 +225,15 @@ def get_allocation_proposals(budget, start_date, end_date, ph_country):
     return proposals
 
 
-# import cProfile
-# cProfile.run(
-#    """print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))"""
-# )
-from timeit import default_timer as timer
+#import cProfile
 
-start = timer()
-print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))
-end = timer()
-print("time" + str(end - start))
+#cProfile.run(
+#"""print(get_allocation_proposals(15, "2019-06-20", "2022-06-19", "CH"))"""
+#)
+#from timeit import default_timer as timer
+
+#start = timer()
+#print(get_allocation_proposals(15, "2019-06-20", "2020-06-19", "CH"))
+#end = timer()
+#print("time" + str(end - start))
 

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div data-provide="calendar"></div>
+    </div>
+</div>
+<div class="container-fluid fixed-bottom">
+    <div class="d-flex justify-content-center">
+        <form class="form-inline planform justify-content-between">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-addon primary">
+                        <span class="input-group-text primary">From</span>
+                    </span>
+                </div>
+                <input class="form-control withprepend datepicker" id="startDate" name="date" placeholder="yyyy-mm-dd"
+                    type="text" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-addon primary">
+                        <span class="input-group-text primary">To</span>
+                    </span>
+                </div>
+                <input class="form-control withprepend datepicker" id="endDate" name="date" placeholder="yyyy-mm-dd"
+                    type="text" autocomplete="off" />
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-addon primary">
+                        <span class="input-group-text primary">Days</span>
+                    </span>
+                </div>
+                <input id="daysBudget" class="form-control withprepend" type="number" value="15" min="0" max="365"
+                    step="1" />
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-addon primary">
+                        <span class="input-group-text primary">Locale</span>
+                    </span>
+                </div>
+                <select class="form-control selectpicker withprepend" id="select-country" data-live-search="true">
+                    <option data-tokens="china">China</option>
+                    <option data-tokens="malayasia">Malayasia</option>
+                    <option data-tokens="singapore">Singapore</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <button class="btn btn-info" onclick="submitPlanningForm(event)">
+                    Go!</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

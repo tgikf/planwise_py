@@ -29,7 +29,12 @@ application.secret_key = (
 # index landing point
 @application.route("/")
 def index():
-    return render_template("base.html")
+    return render_template("plan.html")
+
+# index landing point
+@application.route("/about")
+def about():
+    return render_template("about.html")
 
 
 # API for planning requests
