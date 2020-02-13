@@ -15,8 +15,8 @@
                         <span class="input-group-text primary">From</span>
                     </span>
                 </div>
-                <input class="form-control withprepend datepicker" id="startDate" name="date" placeholder="yyyy-mm-dd"
-                    type="text" autocomplete="off">
+                <input class="form-control withprepend datepicker" id="startDate" name="date" value="2020-01-01"
+                    type="text" autocomplete="off" />
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -24,7 +24,7 @@
                         <span class="input-group-text primary">To</span>
                     </span>
                 </div>
-                <input class="form-control withprepend datepicker" id="endDate" name="date" placeholder="yyyy-mm-dd"
+                <input class="form-control withprepend datepicker" id="endDate" name="date" value="2020-12-31"
                     type="text" autocomplete="off" />
             </div>
             <div class="input-group">
@@ -43,19 +43,15 @@
                         <span class="input-group-text primary">Locale</span>
                     </span>
                 </div>
-                <select class="form-control selectpicker withprepend" id="select-country" data-live-search="true">
-                    <option data-tokens="china">China</option>
-                    <option data-tokens="malayasia">Malayasia</option>
-                    <option data-tokens="singapore">Singapore</option>
+                <select class="form-control selectpicker withprepend" id="regionSelection" data-live-search="true" data-width="auto">
+                    <!--<option data-tokens="switzerland">Switzerland</option>-->
                 </select>
             </div>
             <div class="input-group">
-                <button class="btn btn-info" onclick="submitPlanningForm(event)">
+                <button class="btn btn-info" onclick="planWise(event)">
                     Go!</button>
             </div>
         </form>
     </div>
 </div>
-
-
 {% endblock %}

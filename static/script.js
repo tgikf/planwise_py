@@ -1,20 +1,20 @@
-function submitPlanningForm(e) {
+function planWise(e) {
     var startDate = $('input[id=startDate]').val();
     var endDate = $('input[id=endDate]').val();
     var daysBudget = $('input[id=daysBudget]').val();
+    var region = $('input[id=regionSelection]').val();
+    
     $('#alertzone').empty();
-
     if (isValidDate(startDate) && isValidDate(endDate) && 0 < daysBudget <= 365)  {
-        //initialize elements
-        $('img.loadinggif').show();
 
+        alert('working')
         //define correct API url
         var apiURL = 'http://localhost:5000/api/plan';
 
         //execute api call
         $.ajax({
             url: apiURL + '?start=' + startDate +
-                '&end=' + endDate + '&budget='+daysBudget,
+                '&end=' + endDate + '&budget='+daysBudget+ '&region='+region,
             success: function (result) {
                 var resObj = JSON.parse(result)
                 var history = JSON.parse(resObj.history)

@@ -7,16 +7,16 @@ from collections import namedtuple
 import holidays
 
 
-def get_horizon_dates(start_date, end_date, ph_country):
+def get_horizon_dates(start_date, end_date, region):
     # get date range for horizon
     rng = pd.date_range(start_date, end_date)
-    country_holidays = holidays.CountryHoliday(ph_country, years=rng.year)
+    region_holidays = holidays.CountryHoliday(region, years=rng.year)
 
     # create list of timestamps and each date's cost (0 for weekend or public holiday, 1 for weekdays)
     date_list = []
     for x in rng:
         date_list.append(
-            [x, 0 if x in country_holidays or x.weekday() in (5, 6) else 1]
+            [x, 0 if x in region_holidays or x.weekday() in (5, 6) else 1]
         )
 
     return date_list
@@ -205,7 +205,7 @@ def cleanse_allocation_proposals(raw_proposals):
     return cleansed_proposals
 
 
-def get_allocation_proposals(budget, start_date, end_date, ph_country):
+def get_allocation_proposals(budget, start_date, end_date, region):
     # accepts:
     #   budget to be allocated
     #   horizon start date
@@ -213,7 +213,7 @@ def get_allocation_proposals(budget, start_date, end_date, ph_country):
     # returns:
     #   a list of allocation proposals
 
-    date_horizon = get_horizon_dates(start_date, end_date, ph_country)
+    date_horizon = get_horizon_dates(start_date, end_date, region)
 
     proposals = get_all_allocation_proposals(budget, get_options(date_horizon))
     proposals = cleanse_allocation_proposals(proposals)
@@ -223,7 +223,6 @@ def get_allocation_proposals(budget, start_date, end_date, ph_country):
         p.append({"unallocated_budget": (budget - sum(x["cost"] for x in p))})
 
     return proposals
-
 
 #import cProfile
 

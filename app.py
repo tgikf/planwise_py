@@ -17,6 +17,7 @@ import json
 import os
 
 from planner import get_allocation_proposals
+from params import get_holiday_locales
 
 application = Flask(__name__)
 
@@ -30,6 +31,7 @@ application.secret_key = (
 @application.route("/")
 def index():
     return render_template("plan.html")
+
 
 # index landing point
 @application.route("/about")
@@ -49,20 +51,38 @@ def planning_api():
         end_date = to_date(
             request.args.get("end", default=datetime.date.today().isoformat())
         )
-        budget = request.args.get("budget", default=15)
-        country = request.args.get("country", default="CH")
+        budget = int(request.args.get("budget", default=15))
+        region = request.args.get("region", default="SG")
+
+        # response
         response["start_date"] = start_date.isoformat()
         response["end_date"] = end_date.isoformat()
-        response["ph_country"] = country
+        response["region"] = region
         response["budget"] = budget
         response["public_holidays"] = [1, 2, 3]
-        response["options"] = get_allocation_proposals(budget, start_date, end_date, country)
+        response["options"] = get_allocation_proposals(
+            budget, start_date, end_date, region
+        )
 
     except ValueError as ex:
         alerts.append(str(ex))
 
     # add alerts to response
     response["alerts"] = json.dumps(alerts)
+    return json.dumps(response)
+
+
+# API for holiday locales
+@application.route("/api/getLocales", methods=["GET"])
+def params_api():
+    response = {}
+    alerts = []
+
+    response["locales"] = json.dumps(get_holiday_locales())
+
+    # add alerts to response
+    response["alerts"] = json.dumps(alerts)
+
     return json.dumps(response)
 
 

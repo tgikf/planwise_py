@@ -57,7 +57,7 @@ a:hover {
   padding: 1em 2em 1em;
 }
 
-/* input field */
+/* prepend field */
 
 .input-group-addon.primary {
   color: #f8f9fa;
@@ -80,7 +80,7 @@ a:hover {
 
 .form-control.withprepend {
   border: 1px solid #17a2b8;
-  width: auto;
+  width: 7.5em;
 }
 
 .bootstrap-select.form-control .dropdown-toggle {
