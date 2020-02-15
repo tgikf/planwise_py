@@ -18,7 +18,7 @@ header {
 nav {
   padding: 2em 3em 2em;
   background-color: #17a2b8;
-  height: 10em;
+  height: 8em;
 }
 
 a.nav-link {
@@ -44,7 +44,7 @@ a:hover {
 }
 
 .navbar-brand {
-  font-size: 5em;
+  font-size: 4em;
 }
 
 .calendar {
@@ -88,6 +88,14 @@ a:hover {
 }
 .planform .input-group:not(:last-child) {
   margin-right: 1em;
+}
+
+.calendar table.month td.day .day-content {
+  padding: 4px 5px !important;
+}
+
+.popover {
+  max-width: 300px;
 }
 
 @media (min-width: 768px) {

@@ -10,11 +10,11 @@ def get_holiday_locales():
 
             if hasattr(obj, 'PROVINCES'):
                 for province in obj.PROVINCES:
-                    holiday_locales.append({'display' : name + ' - ' +str(province), 'value' : name+','+str(province)})
+                    holiday_locales.append({'display' : name + ' - ' +str(province), 'value' : name+',P,'+str(province)})
 
             if hasattr(obj, 'STATES'):    
                 for state in obj.STATES:
-                    holiday_locales.append({'display' : name + ' - ' +str(state), 'value' : name+','+str(state)})
+                    holiday_locales.append({'display' : name + ' - ' +str(state), 'value' : name+',S,'+str(state)})
 
     
     return holiday_locales

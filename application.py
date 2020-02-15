@@ -16,7 +16,7 @@ import datetime
 import json
 import os
 
-from planner import get_allocation_proposals
+from planner import get_allocation_proposals, get_region_holidays
 from params import get_holiday_locales
 
 application = Flask(__name__)
@@ -59,8 +59,17 @@ def planning_api():
         response["end_date"] = end_date.isoformat()
         response["region"] = region
         response["budget"] = budget
-        response["public_holidays"] = [1, 2, 3]
-        response["options"] = get_allocation_proposals(
+
+        # add public holidays to response
+        pub_hd = []
+        ph_object = get_region_holidays(pd.date_range(start_date, end_date), region)
+        for raw_ph in ph_object:
+            pub_hd.append(
+                {"date": raw_ph.isoformat(), "description": ph_object[raw_ph]}
+            )
+        response["public_holidays"] = json.dumps(pub_hd)
+
+        response["proposals"] = get_allocation_proposals(
             budget, start_date, end_date, region
         )
 

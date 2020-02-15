@@ -2,14 +2,18 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
-        <div data-provide="calendar"></div>
+    <div class="row  justify-content-center">
+        <div class="spinner-border text-info  justify-content-center" id="planspinner" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div id="calendar"></div>
     </div>
+    <div class="row justify-content-center" id="detailzone"> </div>
 </div>
 <div class="container-fluid fixed-bottom">
     <div class="d-flex justify-content-center">
         <form class="form-inline planform justify-content-between">
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-addon primary">
                         <span class="input-group-text primary">From</span>
@@ -26,7 +30,24 @@
                 </div>
                 <input class="form-control withprepend datepicker" id="endDate" name="date" value="2020-12-31"
                     type="text" autocomplete="off" />
+            </div> !-->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-addon primary">
+                        <span class="input-group-text primary">Year</span>
+                    </span>
+                </div>
+                <select class="form-control withprepend" id="yearSelection" data-width="auto">
+                    <!-- todo: this list should be centralized and used in JS validation too-->
+                    <option>2020</option>
+                    <option>2021</option>
+                    <option>2022</option>
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                </select>
             </div>
+
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-addon primary">
@@ -43,7 +64,8 @@
                         <span class="input-group-text primary">Locale</span>
                     </span>
                 </div>
-                <select class="form-control selectpicker withprepend" id="regionSelection" data-live-search="true" data-width="auto">
+                <select class="form-control selectpicker withprepend" id="regionSelection" data-live-search="true"
+                    data-width="auto">
                     <!--<option data-tokens="switzerland">Switzerland</option>-->
                 </select>
             </div>

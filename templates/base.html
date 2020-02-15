@@ -69,8 +69,11 @@
                         }
                         $('#regionSelection').append('<option data-tokens="' + locale.display + '" value="' + locale.value + '">' + locale.display + '</option>');
                     }
-                    console.log(maxLen)
+
+                    //adjust width of select to widest field (data-width workaround)
                     $('.dropup').width(maxLen+'ch');
+
+                    //refresh the select picker
                     $('.selectpicker').selectpicker('refresh');
                     $('.selectpicker').selectpicker();
                 },
@@ -82,9 +85,7 @@
                     console.log(errorThrown);
                 }
             });
-        })
-
-        $(document).ready(function () {
+        
             var dateInput = $('.datepicker');
             var container = $('.bootstrap-iso form').length > 0 ?
                 $('.bootstrap-iso form').parent() : 'body';
@@ -96,7 +97,10 @@
             };
 
             dateInput.datepicker(options);
+
+            $('#planspinner').hide();
         })
+
     </script>
 </body>
 
