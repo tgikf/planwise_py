@@ -1,3 +1,7 @@
+import pandas as pd
+import datetime
+import json
+
 from flask import (
     Flask,
     render_template,
@@ -9,12 +13,6 @@ from flask import (
     logging,
     send_from_directory,
 )
-from functools import wraps
-import pandas as pd
-import numpy as np
-import datetime
-import json
-import os
 
 from planner import get_allocation_proposals, get_region_holidays
 from params import get_holiday_locales

@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158591941-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-158591941-1');
+    </script>
+
     <title>PlanWise</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,14 +74,14 @@
                     var maxLen = 0;
                     //add locales to selection
                     for (var locale of locales) {
-                        if (locale.display.length > maxLen){
+                        if (locale.display.length > maxLen) {
                             maxLen = locale.display.length;
                         }
                         $('#regionSelection').append('<option data-tokens="' + locale.display + '" value="' + locale.value + '">' + locale.display + '</option>');
                     }
 
                     //adjust width of select to widest field (data-width workaround)
-                    $('.dropup').width(maxLen+'ch');
+                    $('.dropup').width(maxLen + 'ch');
 
                     //refresh the select picker
                     $('.selectpicker').selectpicker('refresh');
@@ -85,7 +95,7 @@
                     console.log(errorThrown);
                 }
             });
-        
+
             var dateInput = $('.datepicker');
             var container = $('.bootstrap-iso form').length > 0 ?
                 $('.bootstrap-iso form').parent() : 'body';

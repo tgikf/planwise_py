@@ -1,9 +1,8 @@
-import pandas as pd
 from copy import deepcopy
+
+import pandas as pd
 import funcy
 import itertools
-from datetime import timedelta, datetime
-from collections import namedtuple
 import holidays
 
 
@@ -78,7 +77,7 @@ def get_options(date_list):
                 # public holidays on weekends are ignored (as in some cases replaced with "Monday after [holiday]")
                 if date_list[j][1] == 0 and date_list[j][0].weekday() < 5:
                     # each public holiday that is part of a leave adds 10% more weight to it
-                    #option_ph_weight = option_ph_weight * 1.1
+                    # option_ph_weight = option_ph_weight * 1.1
                     option_ph_weight += 1
 
                 # end of opten is when:
@@ -241,7 +240,7 @@ def get_allocation_proposals(budget, start_date, end_date, region):
     proposals = get_all_allocation_proposals(budget, get_options(date_horizon))
     proposals = cleanse_allocation_proposals(proposals)
 
-    #postprocess proposals to restructure and calculate budget leftovers
+    # postprocess proposals to restructure and calculate budget leftovers
     final_proposals = []
     for p in proposals:
         p_dict = {}

@@ -70,7 +70,7 @@ function planWise(e) {
                         alert + '</div>');
                 }
 
-                showCalendar(eventData)
+                showCalendar(inpYear, eventData)
                 toggleElements();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -96,12 +96,13 @@ function toggleElements() {
     $('#detailzone').toggle();
 }
 
-function showCalendar(calendarEvents) {
+function showCalendar(year, calendarEvents) {
 
     calendar = new Calendar('#calendar', {
         enableContextMenu: false,
         enableRangeSelection: false,
         weekStart: 1,
+        startYear: year,
         //disabledWeekDays: [0, 6],
         mouseOnDay: function (e) {
             if (e.events.length > 0) {
