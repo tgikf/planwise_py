@@ -12,7 +12,7 @@ function planWise(e) {
         toggleElements();
 
         //define correct API url
-        var apiURL = 'http://localhost:5000/api/plan' + '?start=' + inpYear + '-01-01' +
+        var apiURL = 'http://planwi.se/api/plan' + '?start=' + inpYear + '-01-01' +
             '&end=' + inpYear + '-12-31&budget=' + inpBudget + '&region=' + inpRegion;
         console.log(apiURL);
         //execute api call
@@ -46,9 +46,9 @@ function planWise(e) {
 
                     //add proposal info to card under calendar (unallocated budget exists per option)
                     var infoSentenceHTML = 'This is how you could plan <b>' + (resObj.budget - proposal.unallocated_budget) +
-                        '</b> days of leave while making best use of the <b>' + regionString + '</b> holidays.';
+                        '</b> days of leave to make best use of public holidays in <b>' + regionString + '</b>.';
                     if (proposal.unallocated_budget > 0) {
-                        infoSentenceHTML += ' With this leave plan you still have <b>' + proposal.unallocated_budget + '</b> to plan freely.';
+                        infoSentenceHTML += ' With this leave plan you still have <b>' + proposal.unallocated_budget + '</b> day(s) to plan freely.';
                     }
                     $('#detailzone').empty();
                     $('#detailzone').append(

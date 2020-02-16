@@ -17,28 +17,28 @@ from flask import (
 from planner import get_allocation_proposals, get_region_holidays
 from params import get_holiday_locales
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 # random key that flask will use to generate and authenticate cookies
-application.secret_key = (
+app.secret_key = (
     "5b3e0ea670dd36807b72acb9045ddb547f8fd331aac48d1e2099a364b66c8025"
 )
 
 
 # index landing point
-@application.route("/")
+@app.route("/")
 def index():
     return render_template("plan.html")
 
 
 # index landing point
-@application.route("/about")
+@app.route("/about")
 def about():
     return render_template("about.html")
 
 
 # API for planning requests
-@application.route("/api/plan", methods=["GET"])
+@app.route("/api/plan", methods=["GET"])
 def planning_api():
     response = {}
     alerts = []
@@ -80,7 +80,7 @@ def planning_api():
 
 
 # API for holiday locales
-@application.route("/api/getLocales", methods=["GET"])
+@app.route("/api/getLocales", methods=["GET"])
 def params_api():
     response = {}
     alerts = []
@@ -103,4 +103,4 @@ def to_date(date_string):
 
 
 if __name__ == "__main__":
-    application.run(debug=False)
+    app.run(debug=False)

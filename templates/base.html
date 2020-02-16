@@ -58,7 +58,7 @@
         $(document).ready(function () {
             //execute api call to get locale options
             $.ajax({
-                url: 'http://localhost:5000/api/getLocales',
+                url: 'http://planwi.se/api/getLocales',
                 success: function (result) {
                     var resObj = JSON.parse(result)
                     var locales = JSON.parse(resObj.locales)
