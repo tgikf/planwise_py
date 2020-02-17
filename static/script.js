@@ -59,7 +59,7 @@ function planWise(e) {
 
                 var holidays = JSON.parse(resObj.public_holidays);
                 for (var h of holidays) {
-                    eventData.push({ name: h.description, caption: regionString, startDate: new Date(h.date), endDate: new Date(h.date), color: 'red' })
+                    eventData.push({ name: h.description, caption: regionString, startDate: new Date(h.date), endDate: new Date(h.date), color: '#17a2b8' })
                 }
 
                 var alerts = Object.values(JSON.parse(resObj.alerts));
@@ -103,6 +103,7 @@ function showCalendar(year, calendarEvents) {
         enableRangeSelection: false,
         weekStart: 1,
         startYear: year,
+        displayHeader: false,
         //disabledWeekDays: [0, 6],
         mouseOnDay: function (e) {
             if (e.events.length > 0) {
